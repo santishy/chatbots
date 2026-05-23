@@ -19,7 +19,7 @@ class ChatbotFactory extends Factory
     {
         return [
             'user_id' => User::factory(),
-            'name' => $this->faker->company(),
+            'name' => $this->faker->sentence(),
             'system_prompt' => $this->faker->paragraph(),
             'temperature' => $this->faker->randomFloat(1, 0, 1),
             'model' => $this->faker->randomElement(['gpt-3.5-turbo', 'gpt-4', 'gpt-4-turbo', 'gpt-5']),

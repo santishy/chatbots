@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreChatbotRequest;
-use App\Http\Requests\UpdateChatbotRequest;
+use App\Http\Requests\SaveChatbotRequest;
 use App\Models\Chatbot;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -17,7 +16,7 @@ class ChatbotController extends Controller
     {
 
         return Inertia::render('Chatbots/Index', [
-            'chatbots' => $request->user()->chatbots
+            'chatbots' => $request->user()->chatbots,
         ]);
     }
 
@@ -26,15 +25,19 @@ class ChatbotController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Chatbots/Create', [
+            'chatbot' => new Chatbot,
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreChatbotRequest $request)
+    public function store(SaveChatbotRequest $request)
     {
-        //
+        $chatbot = $request->user()->chatbots()->create($request->validated());
+
+        return to_route('chatbots.show', $chatbot);
     }
 
     /**
@@ -42,7 +45,11 @@ class ChatbotController extends Controller
      */
     public function show(Chatbot $chatbot)
     {
-        //
+        $chatbot->load('knowledgeSources');
+
+        return Inertia::render('Chatbots/Show', [
+            'chatbot' => $chatbot,
+        ]);
     }
 
     /**
@@ -50,15 +57,19 @@ class ChatbotController extends Controller
      */
     public function edit(Chatbot $chatbot)
     {
-        //
+        return Inertia::render('Chatbots/Edit', [
+            'chatbot' => $chatbot,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateChatbotRequest $request, Chatbot $chatbot)
+    public function update(SaveChatbotRequest $request, Chatbot $chatbot)
     {
-        //
+        $chatbot->update($request->validated());
+
+        return back();
     }
 
     /**

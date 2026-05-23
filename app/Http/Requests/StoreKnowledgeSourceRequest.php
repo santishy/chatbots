@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateChatbotRequest extends FormRequest
+class StoreKnowledgeSourceRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,10 @@ class UpdateChatbotRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required|string|max:255',
+            'type' => 'required|in:pdf,website,string',
+            'website' => 'required_if:type,website|exclude_if:type,pdf|url|string|max:255',
+            'pdf' => 'required_if:type,pdf|exclude_if:type,website|file|mimes:pdf|max:10240',
         ];
     }
 }

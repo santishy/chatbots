@@ -2,10 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\Chatbot;
+use App\Models\KnowledgeSource;
 use App\Models\User;
+use Illuminate\Auth\Access\Response;
 
-class ChatbotPolicy
+class KnowledgeSourcePolicy
 {
     /**
      * Determine whether the user can view any models.
@@ -18,7 +19,7 @@ class ChatbotPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Chatbot $chatbot): bool
+    public function view(User $user, KnowledgeSource $knowledgeSource): bool
     {
         return false;
     }
@@ -34,15 +35,15 @@ class ChatbotPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Chatbot $chatbot): bool
+    public function update(User $user, KnowledgeSource $knowledgeSource): bool
     {
-        return true;
+        return false;
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Chatbot $chatbot): bool
+    public function delete(User $user, KnowledgeSource $knowledgeSource): bool
     {
         return false;
     }
@@ -50,7 +51,7 @@ class ChatbotPolicy
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Chatbot $chatbot): bool
+    public function restore(User $user, KnowledgeSource $knowledgeSource): bool
     {
         return false;
     }
@@ -58,7 +59,7 @@ class ChatbotPolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Chatbot $chatbot): bool
+    public function forceDelete(User $user, KnowledgeSource $knowledgeSource): bool
     {
         return false;
     }

@@ -23,4 +23,6 @@ Route::middleware([
         return Inertia::render('Dashboard');
     })->name('dashboard');
     Route::resource('chatbots', ChatbotController::class);
+
+    Route::resource('chatbots.knowledge-sources', \App\Http\Controllers\KnowledgeSourceController::class);
 });
